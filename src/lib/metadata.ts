@@ -3,7 +3,7 @@ import { CONFIG } from '@/data/config';
 export const siteMetadata = {
   title: `${CONFIG.name} | ${CONFIG.title}`,
   description: `AI/ML Engineer from Mumbai. Top 1% Amazon ML Challenge 2024. IEEE published. Specializing in LangGraph agents, computer vision, and MLOps.`,
-  url: 'https://yuval728.vercel.app',
+  url: 'https://yuvalmehta.vercel.app/',
   ogImage: '/og.png',
   twitterHandle: '@yuval728',
   keywords: [
