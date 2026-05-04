@@ -7,7 +7,7 @@ interface MediumPost {
   categories: string[];
 }
 
-export async function fetchMediumPosts(posts_count: number = 5): Promise<MediumPost[]> {
+export async function fetchMediumPosts(posts_count?: number): Promise<MediumPost[]> {
   try {
     const response = await fetch(
       `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${CONFIG.medium}`,
@@ -26,7 +26,9 @@ export async function fetchMediumPosts(posts_count: number = 5): Promise<MediumP
       return getFallbackPosts();
     }
 
-    return data.items.slice(0, posts_count).map((item: any) => ({
+    const items = posts_count ? data.items.slice(0, posts_count) : data.items;
+
+    return items.map((item: any) => ({
       title: item.title,
       link: item.link,
       pubDate: new Date(item.pubDate).toLocaleDateString('en-US', {

@@ -107,7 +107,7 @@ export const CONFIG = {
     },
     {
       name: 'Databases & Vector Stores',
-      color: 'text-text-muted border-text-muted/30',
+      color: 'text-accent-red border-accent-red/30 bg-accent-red/5',
       items: [
         'PostgreSQL', 'MySQL', 'MongoDB', 'Redis', 'Supabase', 'SQLite',
         'Pinecone', 'ChromaDB', 'FAISS', 'Qdrant', 'Weaviate',
@@ -115,12 +115,12 @@ export const CONFIG = {
     },
     {
       name: 'Web & APIs',
-      color: 'text-text-muted border-text-muted/30',
+      color: 'text-accent-cyan border-accent-cyan/30 bg-accent-cyan/5',
       items: ['FastAPI', 'Django', 'Flask', 'Streamlit', 'Node.js', 'Express.js', 'REST', 'GraphQL'],
     },
     {
       name: 'Data & Big Data',
-      color: 'text-text-muted border-text-muted/30',
+      color: 'text-accent-pink border-accent-pink/30 bg-accent-pink/5',
       items: ['PySpark', 'Apache Spark', 'Pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'Plotly'],
     },
   ],
