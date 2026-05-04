@@ -18,6 +18,9 @@ const config: Config = {
         'accent-green': 'rgb(var(--color-accent-green) / <alpha-value>)',
         'accent-amber': 'rgb(var(--color-accent-amber) / <alpha-value>)',
         'accent-purple': 'rgb(var(--color-accent-purple) / <alpha-value>)',
+        'accent-red': 'rgb(var(--color-accent-red) / <alpha-value>)',
+        'accent-cyan': 'rgb(var(--color-accent-cyan) / <alpha-value>)',
+        'accent-pink': 'rgb(var(--color-accent-pink) / <alpha-value>)',
       },
       fontFamily: {
         display: ['var(--font-display)'],

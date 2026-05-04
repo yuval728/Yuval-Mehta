@@ -3,6 +3,6 @@ import { BlogList } from '@/components/sections/BlogList';
 import { CONFIG } from '@/data/config';
 
 export async function Blog() {
-  const posts = await fetchMediumPosts(CONFIG.blogDisplayCount);
+  const posts = await fetchMediumPosts();
   return <BlogList posts={posts} />;
 }

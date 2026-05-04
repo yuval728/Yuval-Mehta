@@ -29,6 +29,9 @@
     --color-accent-green: 48 209 88;
     --color-accent-amber: 255 159 10;
     --color-accent-purple: 191 90 242;
+    --color-accent-red: 255 59 48;
+    --color-accent-cyan: 0 176 255;
+    --color-accent-pink: 255 64 129;
     --radius: 0.5rem;
   }
 
