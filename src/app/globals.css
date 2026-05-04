@@ -68,8 +68,4 @@
   .stat-card {
     @apply rounded-xl border border-border bg-surface p-6;
   }
-
-  .skill-pill {
-    @apply inline-block rounded-full border border-border px-3 py-1.5 font-mono text-sm transition-all hover:scale-105;
-  }
 }
