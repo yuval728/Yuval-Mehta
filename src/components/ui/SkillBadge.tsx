@@ -10,7 +10,7 @@ interface SkillBadgeProps {
 export function SkillBadge({ name, colorClass }: SkillBadgeProps) {
   return (
     <motion.span
-      className={`skill-pill border ${colorClass} cursor-default`}
+      className={`inline-block rounded-full border px-3 py-1.5 font-mono text-sm transition-all hover:scale-105 cursor-default ${colorClass}`}
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.15 }}
     >
