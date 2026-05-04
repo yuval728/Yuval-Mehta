@@ -5,6 +5,16 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  safelist: [
+    // Accent color utilities for skill badges
+    'text-accent-blue', 'border-accent-blue/30', 'bg-accent-blue/5',
+    'text-accent-green', 'border-accent-green/30', 'bg-accent-green/5',
+    'text-accent-amber', 'border-accent-amber/30', 'bg-accent-amber/5',
+    'text-accent-purple', 'border-accent-purple/30', 'bg-accent-purple/5',
+    'text-accent-red', 'border-accent-red/30', 'bg-accent-red/5',
+    'text-accent-cyan', 'border-accent-cyan/30', 'bg-accent-cyan/5',
+    'text-accent-pink', 'border-accent-pink/30', 'bg-accent-pink/5',
+  ],
   theme: {
     extend: {
       colors: {
