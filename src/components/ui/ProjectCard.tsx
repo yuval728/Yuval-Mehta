@@ -49,10 +49,12 @@ export function ProjectCard({
         {description}
       </p>
 
-      <div className="mb-4 flex items-center gap-2 font-mono text-xs text-text-muted">
-        <span>⭐</span>
-        <span>{stars}</span>
-      </div>
+      {stars > 0 && (
+        <div className="mb-4 flex items-center gap-2 font-mono text-xs text-text-muted">
+          <span aria-hidden="true">&#9733;</span>
+          <span>{stars}</span>
+        </div>
+      )}
 
       <div className="mb-4 flex flex-wrap gap-1.5">
         {topics.slice(0, 5).map((topic) => (
