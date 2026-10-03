@@ -12,7 +12,7 @@ export const CONFIG = {
   medium: 'yuvalmehta.728',
   x: 'Yuval728',
   resume: '/YuvalMehta_CV.pdf',
-  avatar: 'https://avatars.githubusercontent.com/u/87527560?v=4',
+  avatar: '/headshot.png',
   currentRole: 'Senior AI Engineer @ Nimap Infotech',
   currentRoleNote: 'Deployed at Mirae Asset Sharekhan',
   pinnedRepos: [
