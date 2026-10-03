@@ -24,7 +24,7 @@ export default function OpengraphImage() {
         <div style={{ fontSize: 96, marginTop: 24 }}>{CONFIG.name}</div>
         <div style={{ fontSize: 40, marginTop: 16, color: '#aab4c0' }}>{CONFIG.title} · {CONFIG.location}</div>
         <div style={{ fontSize: 30, marginTop: 40, color: '#aab4c0', display: 'flex' }}>
-          Top 1% Amazon ML Challenge · 2 IEEE publications · 5x infra cost reduction
+          <span>Top 1% Amazon ML Challenge · 2 IEEE publications · 5x infra cost reduction</span>
         </div>
       </div>
     ),
