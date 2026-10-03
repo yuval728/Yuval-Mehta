@@ -4,11 +4,26 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Resend cannot send from a *.vercel.app address. Use a verified domain via
+// RESEND_FROM, or Resend's test sender (delivers only to the Resend account email).
+const FROM = process.env.RESEND_FROM || 'Portfolio <onboarding@resend.dev>';
+
+function escapeHtml(v: string) {
+  return v
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 export async function sendContactEmail(formData: {
   name: string;
   email: string;
   message: string;
 }) {
+  const name = escapeHtml(formData.name.slice(0, 120));
+  const email = escapeHtml(formData.email.slice(0, 200));
+  const message = escapeHtml(formData.message.slice(0, 5000));
   try {
     // If no API key, return error message suggesting fallback
     if (!process.env.RESEND_API_KEY) {
@@ -19,16 +34,16 @@ export async function sendContactEmail(formData: {
     }
 
     const result = await resend.emails.send({
-      from: 'noreply@yuvalmehta.vercel.app',
+      from: FROM,
       to: 'yuvalmehta.728@gmail.com',
       reply_to: formData.email,
-      subject: `Portfolio Inquiry from ${formData.name}`,
+      subject: `Portfolio Inquiry from ${formData.name.slice(0, 80).replace(/[\r\n]/g, ' ')}`,
       html: `
         <h2>New Portfolio Inquiry</h2>
-        <p><strong>From:</strong> ${formData.name}</p>
-        <p><strong>Email:</strong> ${formData.email}</p>
+        <p><strong>From:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
         <p><strong>Message:</strong></p>
-        <p>${formData.message.replace(/\n/g, '<br>')}</p>
+        <p>${message.replace(/\n/g, '<br>')}</p>
       `,
     });
 

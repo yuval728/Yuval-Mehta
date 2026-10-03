@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://yuvalmehta.vercel.app/sitemap.xml

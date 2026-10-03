@@ -87,6 +87,7 @@ export function Timeline({ items }: TimelineProps) {
             </div>
 
             {/* Highlights */}
+            {exp.highlights.length > 0 && (
             <ul className="mt-4 space-y-2">
               {exp.highlights.map((highlight, i) => (
                 <li key={i} className="font-sans text-sm text-text-muted leading-relaxed">
@@ -95,8 +96,10 @@ export function Timeline({ items }: TimelineProps) {
                 </li>
               ))}
             </ul>
+            )}
 
             {/* Tech Stack Pills */}
+            {exp.stack.length > 0 && (
             <div className="mt-4 flex flex-wrap gap-2">
               {exp.stack.map((tech) => (
                 <span
@@ -107,6 +110,7 @@ export function Timeline({ items }: TimelineProps) {
                 </span>
               ))}
             </div>
+            )}
           </div>
         </motion.div>
       ))}

@@ -64,7 +64,7 @@ export function Stats() {
               className="flex gap-4 rounded-lg border border-border/50 bg-surface/30 p-6"
               variants={itemVariants}
             >
-              <span className="text-2xl">{achievement.icon}</span>
+              <span className="w-20 shrink-0 font-mono text-sm text-accent-blue">{achievement.label}</span>
               <div className="flex-1">
                 <h3 className="font-sans font-medium text-text-primary">
                   {achievement.title}

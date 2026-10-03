@@ -136,10 +136,10 @@ export function Hero() {
             </div>
             <div className="rounded-lg border border-border bg-surface px-4 py-2 text-center">
               <p className="font-mono text-sm text-text-muted">
-                Generative AI Engineer @ xLM
+                {CONFIG.currentRole}
               </p>
               <p className="font-sans text-xs text-text-muted">
-                Continuous Intelligence
+                {CONFIG.currentRoleNote}
               </p>
             </div>
           </motion.div>

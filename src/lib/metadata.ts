@@ -2,20 +2,21 @@ import { CONFIG } from '@/data/config';
 
 export const siteMetadata = {
   title: `${CONFIG.name} | ${CONFIG.title}`,
-  description: `Generative AI Engineer from Mumbai. Top 1% Amazon ML Challenge 2024. IEEE published. Specializing in LangGraph agents, computer vision, and MLOps.`,
-  url: 'https://yuvalmehta.vercel.app/',
-  ogImage: '/og.png',
-  twitterHandle: '@yuval728',
+  description:
+    'Senior AI Engineer from Mumbai working on ML and LLM systems: fine-tuning, inference, and production agents. Top 1% Amazon ML Challenge 2024. Two IEEE publications.',
+  url: 'https://yuvalmehta.vercel.app',
+  twitterHandle: '@Yuval728',
   keywords: [
-    'AI Engineer',
+    'Senior AI Engineer',
     'ML Engineer',
+    'LLM Fine-tuning',
+    'LLM Inference',
+    'AI Agents',
     'LangGraph',
-    'Computer Vision',
+    'PyTorch',
     'MLOps',
     'Mumbai',
     'Yuval Mehta',
-    'PyTorch',
-    'AI Agents',
   ],
 };
 
@@ -31,9 +32,11 @@ export const jsonLd = {
     addressLocality: CONFIG.location.split(',')[0].trim(),
     addressCountry: 'IN',
   },
+  alumniOf: 'NMIMS Mukesh Patel School of Technology Management and Engineering',
   sameAs: [
     `https://github.com/${CONFIG.github}`,
     `https://linkedin.com/in/${CONFIG.linkedin}`,
     `https://medium.com/@${CONFIG.medium}`,
+    `https://x.com/${CONFIG.x}`,
   ],
 };

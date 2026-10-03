@@ -11,6 +11,19 @@ export function About() {
             <p key={index}>{section}</p>
           ))}
         </div>
+
+        <p className="section-label mb-4 mt-12">// education</p>
+        <div className="space-y-4">
+          {CONFIG.education.map((edu) => (
+            <div key={edu.degree} className="rounded-lg border border-border/50 bg-surface/30 p-5">
+              <h3 className="font-sans font-medium text-text-primary">{edu.degree}</h3>
+              <p className="mt-1 font-sans text-sm text-accent-blue">{edu.school}</p>
+              <p className="mt-1 font-mono text-xs text-text-muted">
+                {edu.period} · {edu.detail}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

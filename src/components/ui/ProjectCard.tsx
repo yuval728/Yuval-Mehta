@@ -45,7 +45,7 @@ export function ProjectCard({
         </a>
       </div>
 
-      <p className="mb-4 font-sans text-sm leading-relaxed text-text-muted line-clamp-2">
+      <p className="mb-4 font-sans text-sm leading-relaxed text-text-muted line-clamp-3">
         {description}
       </p>
 

@@ -1,8 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { CONFIG } from '@/data/config';
 
 export function StatusPill() {
+  if (!CONFIG.availableForWork) return null;
   return (
     <div className="flex items-center gap-2">
       <motion.div
@@ -11,7 +13,7 @@ export function StatusPill() {
         className="h-2 w-2 rounded-full bg-accent-green"
       />
       <span className="text-sm font-medium text-accent-green">
-        Open to opportunities
+        {CONFIG.statusText}
       </span>
     </div>
   );

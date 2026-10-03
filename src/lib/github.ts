@@ -13,18 +13,48 @@ interface FetchOptions {
   all?: boolean;
 }
 
+// Curated copy (with measured results) overrides the raw GitHub description.
+function curate(repo: GitHubRepo): GitHubRepo {
+  const match = CONFIG.projects.find(
+    (p) => p.github.toLowerCase() === repo.html_url.toLowerCase()
+  );
+  if (!match) return repo;
+  return {
+    ...repo,
+    name: match.name,
+    description: match.description,
+    topics: match.tags,
+    homepage: match.demo || repo.homepage,
+  };
+}
+
+// Fallback uses only curated config data. No invented numbers.
+function getFallbackProjects(): GitHubRepo[] {
+  return CONFIG.projects
+    .filter((p) => p.pinned)
+    .map((p) => ({
+      name: p.name,
+      description: p.description,
+      html_url: p.github,
+      stargazers_count: 0,
+      topics: p.tags,
+      homepage: p.demo || null,
+    }));
+}
+
 export async function fetchGitHubProjects(options: FetchOptions = {}): Promise<GitHubRepo[]> {
   try {
     const headers: Record<string, string> = {
       Accept: 'application/vnd.github.v3+json',
     };
 
+    // Without a token, GitHub rate-limits shared hosting IPs (60 req/hour).
     if (process.env.GITHUB_TOKEN) {
       headers.Authorization = `token ${process.env.GITHUB_TOKEN}`;
     }
 
     const response = await fetch(
-      `https://api.github.com/users/${CONFIG.github}/repos?per_page=50&sort=updated`,
+      `https://api.github.com/users/${CONFIG.github}/repos?per_page=100&sort=updated`,
       {
         headers,
         next: { revalidate: 3600 },
@@ -35,60 +65,22 @@ export async function fetchGitHubProjects(options: FetchOptions = {}): Promise<G
       throw new Error('Failed to fetch GitHub repos');
     }
 
-    const repos: GitHubRepo[] = await response.json();
+    const repos: GitHubRepo[] = (await response.json()).filter(
+      (r: GitHubRepo & { fork?: boolean }) => !r.fork
+    );
 
-    // If all: true, return all repos; otherwise filter to pinned
     if (options.all) {
-      return repos;
+      return repos.map(curate);
     }
-    return repos.filter((repo) => CONFIG.pinnedRepos.includes(repo.name));
+
+    const order = CONFIG.pinnedRepos;
+    const pinned = repos
+      .filter((repo) => order.includes(repo.name))
+      .sort((a, b) => order.indexOf(a.name) - order.indexOf(b.name));
+
+    return pinned.length > 0 ? pinned.map(curate) : getFallbackProjects();
   } catch (error) {
     console.error('Error fetching GitHub projects:', error);
-    return options.all ? getFallbackProjects() : getFallbackProjects();
+    return getFallbackProjects();
   }
-}
-
-function getFallbackProjects(): GitHubRepo[] {
-  return [
-    {
-      name: 'AQI_predictor',
-      description: 'ViT model for AQI prediction from satellite and street imagery',
-      html_url: 'https://github.com/yuval728/AQI_predictor',
-      stargazers_count: 42,
-      topics: ['pytorch', 'vit', 'gcp', 'mlflow', 'computer-vision'],
-      homepage: null,
-    },
-    {
-      name: 'VerbalVision',
-      description: 'Lip reading model with 87% character accuracy, deployed with TorchServe',
-      html_url: 'https://github.com/yuval728/VerbalVision',
-      stargazers_count: 38,
-      topics: ['pytorch', 'torchserve', 'mlops', 'docker'],
-      homepage: null,
-    },
-    {
-      name: 'ImageLingo',
-      description: 'Image captioning model with attention mechanism, 91% accuracy',
-      html_url: 'https://github.com/yuval728/ImageLingo',
-      stargazers_count: 35,
-      topics: ['pytorch', 'attention', 'aws', 'mlflow'],
-      homepage: null,
-    },
-    {
-      name: 'OutreachAce',
-      description: 'Gen-AI resume analyzer and cold email generator powered by LangChain',
-      html_url: 'https://github.com/yuval728/OutreachAce',
-      stargazers_count: 56,
-      topics: ['langchain', 'llm', 'chromadb', 'streamlit'],
-      homepage: 'https://outreachace.streamlit.app/',
-    },
-    {
-      name: 'UrbanEcho',
-      description: 'Sound classification on 8000+ samples with robust audio processing',
-      html_url: 'https://github.com/yuval728/UrbanEcho',
-      stargazers_count: 28,
-      topics: ['pytorch', 'audio', 'mlflow', 'docker'],
-      homepage: null,
-    },
-  ];
 }

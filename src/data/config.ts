@@ -1,27 +1,37 @@
 export const CONFIG = {
   name: 'Yuval Mehta',
-  title: 'Generative AI Engineer',
+  title: 'Senior AI Engineer',
   tagline:
-    'Building regulated, production-grade AI platforms - from agentic workflows and LLM infrastructure to scalable ML systems.',
+    'I build and ship ML and LLM systems that hold up in production, from fine-tuning and inference to agents, for regulated, high-trust environments.',
   location: 'Mumbai, India',
   availableForWork: true,
+  statusText: 'Open to research collaborations',
   email: 'yuvalmehta.728@gmail.com',
   github: 'yuval728',
   linkedin: 'yuvalmehta728',
   medium: 'yuvalmehta.728',
+  x: 'Yuval728',
   resume: '/YuvalMehta_CV.pdf',
   avatar: 'https://avatars.githubusercontent.com/u/87527560?v=4',
-  currentRole: 'Generative AI Engineer @ xLM',
+  currentRole: 'Senior AI Engineer @ Nimap Infotech',
+  currentRoleNote: 'Deployed at Mirae Asset Sharekhan',
   pinnedRepos: [
-    'ResearchPilot',
-    'VerbalVision',
+    // Must match GitHub repo names exactly. Order here is the display order.
+    'Research-Pilot',
+    'Qwen-3.5-Scratch-Implementation',
     'AQI_predictor',
-    'AI_Therapist',
-    'WS_Buddy',
-    'ImageLingo',
-    'OutreachAce',
-    'UrbanEcho',
-    'RL-Job-Scheduler',
+    'AI-Therapist',
+    'WsBuddy',
+    'VerbalVision',
+  ],
+
+  education: [
+    {
+      degree: 'B.Tech in Computer Engineering (Specialization in Artificial Intelligence)',
+      school: 'NMIMS Mukesh Patel School of Technology Management and Engineering',
+      period: 'Graduated June 2025',
+      detail: 'CGPA 3.84/4.0',
+    },
   ],
 
   stats: [
@@ -34,44 +44,44 @@ export const CONFIG = {
 
   achievements: [
     {
-      icon: '🎖️',
+      label: '4th',
       title: 'GenAI Week 2025 Hackathon',
       description: 'Placed 4th of 250+ teams in Silicon Valley after building a GxP audit chatbot end to end.',
     },
     {
-      icon: '🏆',
+      label: 'Top 1%',
       title: 'Amazon ML Challenge 2024',
       description: 'Ranked 274th of 74,824 participants - Top 1% in India\'s largest ML competition.',
     },
     {
-      icon: '📚',
+      label: 'IEEE',
       title: 'IEEE InCoWoCo 2025',
       description: 'Published: Estimating Ground-Level AQI from Satellite Imagery using dual-view attention models.',
     },
     {
-      icon: '📚',
+      label: 'IEEE',
       title: 'IEEE APCIT 2024',
       description: 'Published: Examining ML Approaches for Early Diabetes Prediction.',
     },
     {
-      icon: '🔬',
+      label: 'Research',
       title: 'IIT Kharagpur Research',
       description: 'Built a spatiotemporal video-feature extraction pipeline using autoencoders and graph neural networks.',
     },
     {
-      icon: '*',
+      label: 'Platform',
       title: 'Production AI Platform Delivery',
       description: 'Owned cEMS architecture and delivery, including ML pipelines, agents, CI/CD, and GxP-compliant infrastructure.',
     },
   ],
 
   about: {
-    title: "Hi, I'm Yuval Mehta 👋",
+    title: "Hi, I'm Yuval Mehta",
     sections: [
-      "I'm a Generative AI Engineer from Mumbai who builds dependable AI systems for real operating environments - not just demos. My work spans agentic workflows, LLM infrastructure, distributed systems, and ML platforms where compliance, observability, and reliability matter from day one.",
-      "At xLM - Continuous Intelligence, I own architecture and delivery for GxP-compliant products: from cEMS, an environmental-monitoring platform built from the ground up, to reusable audit-trail infrastructure and LangGraph multi-agent systems for intelligent validation. That work has reduced infrastructure costs 5x, improved execution time 30%, increased task success 40%, and expanded workflow coverage 65%.",
+      "I'm a Senior AI Engineer from Mumbai. My focus is ML and LLM systems that survive production: fine-tuning and post-training, inference, agents, and the evaluation and observability around them. I build for environments where compliance and reliability matter from day one, not for demos.",
+      "At xLM Continuous Intelligence (2025 to Sep 2026) I owned architecture and delivery for GxP-compliant products: cEMS, an environmental-monitoring platform built from the ground up, reusable audit-trail infrastructure, and LangGraph multi-agent systems for intelligent validation. Results: 5x lower infrastructure cost, 30% faster execution, 40% higher task success, 65% wider workflow coverage. Since Sep 2026 I am a Senior AI Engineer at Nimap Infotech, deployed at Mirae Asset Sharekhan.",
       "I combine research depth with product-minded engineering. My background includes machine-learning research at IIT Kharagpur, computer-vision and OCR work at JM Financial, two IEEE publications, and a Top 1% finish in the Amazon ML Challenge. I care equally about model capability, system design, and measurable business impact.",
-      "I also share practical lessons on LLMOps, context engineering, and agentic AI patterns. If you're building high-trust AI infrastructure or an ambitious AI product, let's talk.",
+      "I write about LLM post-training, inference, agent memory, and production failure modes. If you are working on high-trust AI infrastructure or research, get in touch.",
     ],
   },
 
@@ -129,12 +139,22 @@ export const CONFIG = {
 
   experience: [
     {
+      role: 'Senior AI Engineer',
+      company: 'Nimap Infotech (deployed at Mirae Asset Sharekhan)',
+      period: 'Sep 2026 - Present',
+      location: 'Mumbai, Maharashtra',
+      current: true,
+      // Add NDA-cleared, metric-backed highlights here once confirmed.
+      highlights: [],
+      stack: [],
+    },
+    {
       role: 'Generative AI Engineer',
       company: 'xLM Continuous Intelligence',
       companyUrl: 'https://www.continuousintelligence.ai/',
-      period: 'Jun 2025 - Present',
+      period: 'Jun 2025 - Sep 2026',
       location: 'Mumbai, Maharashtra',
-      current: true,
+      current: false,
       highlights: [
         'Owned architecture and delivery of cEMS from the ground up, building distributed systems, ML pipelines, AI agents, CI/CD workflows, and GxP-compliant infrastructure',
         'Reduced cTM infrastructure costs 5x through end-to-end pipeline redesign, scalability improvements, and performance optimization',
@@ -203,7 +223,7 @@ export const CONFIG = {
       title: 'Estimating Ground-Level Air Quality Index from Satellite Imagery',
       conference: 'IEEE InCoWoCo 2025',
       authors: 'Yuval Mehta et al.',
-      abstract: 'A dual-view attention model combining satellite and street-view imagery to forecast AQI and six pollutants, achieving 93% R² accuracy with 35% reduction in cloud training costs.',
+      abstract: 'A dual-view attention model combining satellite and street-view imagery to forecast AQI and six pollutants, reaching an R² of 0.93 with a 35% reduction in cloud training costs.',
       doi: '10.1109/InCoWoCo64440.2025.11407074',
       link: 'https://ieeexplore.ieee.org/document/11407074/',
       year: 2025,
@@ -223,7 +243,7 @@ export const CONFIG = {
     {
       name: 'Research Pilot',
       description: 'AI research copilot that turns papers into structured extractions, summaries, architecture diagrams, and PyTorch code through a 10-stage LangGraph workflow.',
-      github: 'https://github.com/yuval728/ResearchPilot',
+      github: 'https://github.com/yuval728/Research-Pilot',
       demo: '',
       tags: ['LangGraph', 'RAG', 'FastAPI', 'React', 'Supabase', 'LiteLLM'],
       pinned: true,
@@ -231,14 +251,14 @@ export const CONFIG = {
     {
       name: 'Qwen3.5 from Scratch',
       description: 'PyTorch implementation of core Qwen3.5 architecture components: GQA, SwiGLU, RoPE, and RMSNorm; validated against the official implementation.',
-      github: 'https://github.com/yuval728',
+      github: 'https://github.com/yuval728/Qwen-3.5-Scratch-Implementation',
       demo: '',
       tags: ['Python', 'PyTorch', 'Transformers', 'GQA', 'RoPE'],
       pinned: true,
     },
     {
       name: 'AQI Prediction',
-      description: 'Dual-view attention model forecasting AQI and 6 pollutants with 93% R² accuracy. Reduced cloud training cost by 35% via automated sweeps.',
+      description: 'Dual-view attention model forecasting AQI and 6 pollutants, R² of 0.93. Reduced cloud training cost by 35% via automated sweeps.',
       github: 'https://github.com/yuval728/AQI_predictor',
       demo: '',
       tags: ['PyTorch', 'GCP', 'WandB', 'FastAPI', 'MLOps'],
@@ -246,16 +266,16 @@ export const CONFIG = {
     },
     {
       name: 'AI Therapist',
-      description: 'LLM-powered therapy agent with emotion control and persistent memory — 70% session consistency improvement, 52% empathy alignment via feedback-driven tuning.',
-      github: 'https://github.com/yuval728',
+      description: 'LLM-powered therapy agent with emotion control and persistent memory: 70% session consistency improvement, 52% empathy alignment via feedback-driven tuning.',
+      github: 'https://github.com/yuval728/AI-Therapist',
       demo: '',
       tags: ['LangGraph', 'LLMs', 'FastAPI', 'Supabase', 'Vector DB'],
       pinned: true,
     },
     {
       name: 'WS Buddy',
-      description: 'Multimodal chatbot integrating voice, image, and context memory — 85% task success rate, 30% engagement boost via dynamic activity updates.',
-      github: 'https://github.com/yuval728',
+      description: 'Multimodal chatbot integrating voice, image, and context memory: 85% task success rate, 30% engagement boost via dynamic activity updates.',
+      github: 'https://github.com/yuval728/WsBuddy',
       demo: '',
       tags: ['LangGraph', 'Whisper', 'Qdrant', 'Diffusion', 'Docker'],
       pinned: true,
@@ -296,7 +316,7 @@ export const CONFIG = {
 
   contact: {
     title: "Let's build something.",
-    description: 'Open to full-time roles, research collaborations, and freelance AI/ML projects.',
+    description: 'Open to research collaborations and conversations about ML and LLM systems.',
   },
 
   blogDisplayCount: 6,

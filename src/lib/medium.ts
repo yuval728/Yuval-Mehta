@@ -43,37 +43,7 @@ export async function fetchMediumPosts(posts_count?: number): Promise<MediumPost
   }
 }
 
+// No invented posts: if the feed fails, render an empty list and let the UI link to Medium.
 function getFallbackPosts(): MediumPost[] {
-  return [
-    {
-      title: 'Scaling Laws in AI: Why Bigger Models Work in Research but Break in Production',
-      link: 'https://medium.com/@3ec8787f291f',
-      pubDate: 'Sep 2025',
-      categories: ['AI', 'ML', 'Scale'],
-    },
-    {
-      title: 'Agentic Patterns: The Building Blocks of Reliable AI Agents',
-      link: 'https://medium.com/@3ec8787f291f',
-      pubDate: 'Aug 2025',
-      categories: ['AI', 'Agents'],
-    },
-    {
-      title: 'Fine-Tuning LLMs in 2025: Techniques, Trade-offs, and Use Cases',
-      link: 'https://medium.com/@3ec8787f291f',
-      pubDate: 'May 2025',
-      categories: ['LLM', 'ML'],
-    },
-    {
-      title: 'Machine Learning at Scale: Why PySpark MLlib Still Wins in 2025',
-      link: 'https://medium.com/@3ec8787f291f',
-      pubDate: 'Jul 2025',
-      categories: ['BigData', 'ML'],
-    },
-    {
-      title: 'How to Build Bulletproof Data Pipelines with PySpark',
-      link: 'https://medium.com/@3ec8787f291f',
-      pubDate: 'Jul 2025',
-      categories: ['BigData', 'Data'],
-    },
-  ];
+  return [];
 }

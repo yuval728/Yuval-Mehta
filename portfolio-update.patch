@@ -1,0 +1,1149 @@
+diff --git a/.env.example b/.env.example
+index 8e2f57c..94257fd 100644
+--- a/.env.example
++++ b/.env.example
+@@ -1,2 +1,3 @@
+ GITHUB_TOKEN=
+ RESEND_API_KEY=
++RESEND_FROM=
+diff --git a/.github/workflows/deploy.yml b/.github/workflows/deploy.yml
+deleted file mode 100644
+index 5776d89..0000000
+--- a/.github/workflows/deploy.yml
++++ /dev/null
+@@ -1,49 +0,0 @@
+-name: Deploy Astro site to GitHub Pages
+-
+-on:
+-  push:
+-    branches:
+-      - master  # or 'master' depending on your default branch
+-
+-permissions:
+-  contents: read
+-  pages: write
+-  id-token: write
+-
+-concurrency:
+-  group: "pages"
+-  cancel-in-progress: false
+-
+-jobs:
+-  build:
+-    runs-on: ubuntu-latest
+-    steps:
+-      - name: Checkout code
+-        uses: actions/checkout@v4
+-
+-      - name: Setup Node.js
+-        uses: actions/setup-node@v4
+-        with:
+-          node-version: 20
+-
+-      - name: Install dependencies
+-        run: npm ci
+-
+-      - name: Build the site
+-        run: npm run build
+-
+-      - name: Upload artifact
+-        uses: actions/upload-pages-artifact@v3
+-        with:
+-          path: ./dist
+-
+-  deploy:
+-    needs: build
+-    runs-on: ubuntu-latest
+-    environment:
+-      name: github-pages
+-      url: ${{ steps.deployment.outputs.page_url }}
+-    steps:
+-      - name: Deploy to GitHub Pages
+-        id: deployment
+-        uses: actions/deploy-pages@v4
+diff --git a/README.md b/README.md
+index d876c51..3bb790f 100644
+--- a/README.md
++++ b/README.md
+@@ -1,45 +1,13 @@
+-<h1 align="center">Hi 👋, I'm Yuval Mehta</h1>
+-<h3 align="center">A passionate Computer Science student specializing in AI/ML</h3>
++# Yuval Mehta | Portfolio
+ 
+-<p align="left"> <img src="https://komarev.com/ghpvc/?username=yuval728&label=Profile%20views&color=0e75b6&style=flat" alt="yuval728" /> </p>
++Next.js 16, Tailwind, Framer Motion. Deployed on Vercel at https://yuvalmehta.vercel.app
+ 
+-<p align="left"> <a href="https://github-profile-trophy.vercel.app/?username=ryo-ma&theme=onedark"><img src="https://github-profile-trophy.vercel.app/?username=yuval728" alt="yuval728" /></a> </p>
++## Content
++All copy lives in `src/data/config.ts`. Project cards are pulled from GitHub (`pinnedRepos`, exact repo names) and overlaid with curated copy from `CONFIG.projects`. Articles come from the Medium RSS feed.
+ 
+-- 🌱 I’m currently learning **AI agents and workflows, and utilizing AI/ML in industries**
++## Environment
++- `GITHUB_TOKEN`: avoids GitHub API rate limits on Vercel
++- `RESEND_API_KEY`, `RESEND_FROM`: contact form email (sender must be a verified Resend domain)
+ 
+-- 📝 I regularly write articles on [https://medium.com/@yuvalmehta.728](https://medium.com/@yuvalmehta.728)
+-
+-- 💬 Ask me about **Artificial Intelligence, Machine Learning, Deep Learning, Computer Vision, NLP and Backend Development**
+-
+-- 📫 How to reach me **yuvalmehta.728@gmail.com**
+-
+-- 📄 Know about my experiences [https://yuval728.github.io/resume/](https://yuval728.github.io/resume/)
+-
+-- ⚡ Fun fact **When I'm not coding or working on machine learning projects, I love staying active and enjoy dancing!🕺**
+-
+-### Blogs posts
+-<!-- BLOG-POST-LIST:START -->
+-- [Evolve Your Machine Learning: Automate the Process of Model Selection through TPOT.](https://dev.to/yuval728/evolve-your-machine-learning-automate-the-process-of-model-selection-through-tpot-4445)
+-- [Unleashing GPU Power: Supercharge Your Data Processing with cuDF](https://dev.to/yuval728/unleashing-gpu-power-supercharge-your-data-processing-with-cudf-2232)
+-- [From Noise to Art: Building Your First Generative Adversarial Network](https://dev.to/yuval728/from-noise-to-art-building-your-first-generative-adversarial-network-472o)
+-<!-- BLOG-POST-LIST:END -->
+-
+-<h3 align="left">Connect with me:</h3>
+-<p align="left">
+-<a href="https://dev.to/yuval728" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/devto.svg" alt="yuval728" height="30" width="40" /></a>
+-<a href="https://linkedin.com/in/yuvalmehta728" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="yuvalmehta728" height="30" width="40" /></a>
+-<a href="https://kaggle.com/yuval728" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/kaggle.svg" alt="yuval728" height="30" width="40" /></a>
+-<a href="https://instagram.com/yuval.728" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="yuval.728" height="30" width="40" /></a>
+-<a href="https://medium.com/@yuvalmehta.728" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/medium.svg" alt="@yuvalmehta.728" height="30" width="40" /></a>
+-<a href="https://www.hackerrank.com/yuvalmehta_728" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/hackerrank.svg" alt="yuvalmehta_728" height="30" width="40" /></a>
+-<a href="https://www.leetcode.com/yuval728" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg" alt="yuval728" height="30" width="40" /></a>
+-</p>
+-
+-<h3 align="left">Languages and Tools:</h3>
+-<p align="left"> <a href="https://aws.amazon.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="aws" width="40" height="40"/> </a> <a href="https://www.gnu.org/software/bash/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/gnu_bash/gnu_bash-icon.svg" alt="bash" width="40" height="40"/> </a> <a href="https://www.cprogramming.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg" alt="c" width="40" height="40"/> </a> <a href="https://www.w3schools.com/cpp/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="40" height="40"/> </a> <a href="https://www.djangoproject.com/" target="_blank" rel="noreferrer"> <img src="https://cdn.worldvectorlogo.com/logos/django.svg" alt="django" width="40" height="40"/> </a> <a href="https://www.docker.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40"/> </a> <a href="https://expressjs.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express" width="40" height="40"/> </a> <a href="https://firebase.google.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" alt="firebase" width="40" height="40"/> </a> <a href="https://flask.palletsprojects.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/pocoo_flask/pocoo_flask-icon.svg" alt="flask" width="40" height="40"/> </a> <a href="https://cloud.google.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/google_cloud/google_cloud-icon.svg" alt="gcp" width="40" height="40"/> </a> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://grafana.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/grafana/grafana-icon.svg" alt="grafana" width="40" height="40"/> </a> <a href="https://graphql.org" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/graphql/graphql-icon.svg" alt="graphql" width="40" height="40"/> </a> <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a> <a href="https://www.linux.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="40" height="40"/> </a> <a href="https://mariadb.org/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/mariadb/mariadb-icon.svg" alt="mariadb" width="40" height="40"/> </a> <a href="https://www.mongodb.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg" alt="mongodb" width="40" height="40"/> </a> <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40"/> </a> <a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a> <a href="https://opencv.org/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/opencv/opencv-icon.svg" alt="opencv" width="40" height="40"/> </a> <a href="https://www.oracle.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/oracle/oracle-original.svg" alt="oracle" width="40" height="40"/> </a> <a href="https://pandas.pydata.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/2ae2a900d2f041da66e950e4d48052658d850630/icons/pandas/pandas-original.svg" alt="pandas" width="40" height="40"/> </a> <a href="https://www.postgresql.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40"/> </a> <a href="https://postman.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" alt="postman" width="40" height="40"/> </a> <a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a> <a href="https://pytorch.org/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/pytorch/pytorch-icon.svg" alt="pytorch" width="40" height="40"/> </a> <a href="https://redis.io" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/redis/redis-original-wordmark.svg" alt="redis" width="40" height="40"/> </a> <a href="https://scikit-learn.org/" target="_blank" rel="noreferrer"> <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg" alt="scikit_learn" width="40" height="40"/> </a> <a href="https://seaborn.pydata.org/" target="_blank" rel="noreferrer"> <img src="https://seaborn.pydata.org/_images/logo-mark-lightbg.svg" alt="seaborn" width="40" height="40"/> </a> <a href="https://www.sqlite.org/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/sqlite/sqlite-icon.svg" alt="sqlite" width="40" height="40"/> </a> <a href="https://www.tensorflow.org" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/tensorflow/tensorflow-icon.svg" alt="tensorflow" width="40" height="40"/> </a> <a href="https://zapier.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/zapier/zapier-icon.svg" alt="zapier" width="40" height="40"/> </a> </p>
+-
+-<p><img align="left" src="https://github-readme-stats.vercel.app/api/top-langs?username=yuval728&show_icons=true&locale=en&layout=compact" alt="yuval728" /></p>
+-
+-<p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=yuval728&show_icons=true&locale=en" alt="yuval728" /></p>
+-
+-<p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=yuval728&" alt="yuval728" /></p>
++## Develop
++`npm install && npm run dev`
+diff --git a/public/robots.txt b/public/robots.txt
+index c2a49f4..14daa6f 100644
+--- a/public/robots.txt
++++ b/public/robots.txt
+@@ -1,2 +1,3 @@
+ User-agent: *
+ Allow: /
++Sitemap: https://yuvalmehta.vercel.app/sitemap.xml
+diff --git a/src/app/actions/contact.ts b/src/app/actions/contact.ts
+index d55cb32..f670800 100644
+--- a/src/app/actions/contact.ts
++++ b/src/app/actions/contact.ts
+@@ -4,11 +4,26 @@ import { Resend } from 'resend';
+ 
+ const resend = new Resend(process.env.RESEND_API_KEY);
+ 
++// Resend cannot send from a *.vercel.app address. Use a verified domain via
++// RESEND_FROM, or Resend's test sender (delivers only to the Resend account email).
++const FROM = process.env.RESEND_FROM || 'Portfolio <onboarding@resend.dev>';
++
++function escapeHtml(v: string) {
++  return v
++    .replace(/&/g, '&amp;')
++    .replace(/</g, '&lt;')
++    .replace(/>/g, '&gt;')
++    .replace(/"/g, '&quot;');
++}
++
+ export async function sendContactEmail(formData: {
+   name: string;
+   email: string;
+   message: string;
+ }) {
++  const name = escapeHtml(formData.name.slice(0, 120));
++  const email = escapeHtml(formData.email.slice(0, 200));
++  const message = escapeHtml(formData.message.slice(0, 5000));
+   try {
+     // If no API key, return error message suggesting fallback
+     if (!process.env.RESEND_API_KEY) {
+@@ -19,16 +34,16 @@ export async function sendContactEmail(formData: {
+     }
+ 
+     const result = await resend.emails.send({
+-      from: 'noreply@yuvalmehta.vercel.app',
++      from: FROM,
+       to: 'yuvalmehta.728@gmail.com',
+       reply_to: formData.email,
+-      subject: `Portfolio Inquiry from ${formData.name}`,
++      subject: `Portfolio Inquiry from ${formData.name.slice(0, 80).replace(/[\r\n]/g, ' ')}`,
+       html: `
+         <h2>New Portfolio Inquiry</h2>
+-        <p><strong>From:</strong> ${formData.name}</p>
+-        <p><strong>Email:</strong> ${formData.email}</p>
++        <p><strong>From:</strong> ${name}</p>
++        <p><strong>Email:</strong> ${email}</p>
+         <p><strong>Message:</strong></p>
+-        <p>${formData.message.replace(/\n/g, '<br>')}</p>
++        <p>${message.replace(/\n/g, '<br>')}</p>
+       `,
+     });
+ 
+diff --git a/src/app/layout.tsx b/src/app/layout.tsx
+index fad4403..3403ca8 100644
+--- a/src/app/layout.tsx
++++ b/src/app/layout.tsx
+@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
+ import { DM_Serif_Display, DM_Mono, Outfit } from 'next/font/google';
+ import { SpeedInsights } from "@vercel/speed-insights/next";
+ import { Analytics } from "@vercel/analytics/react";
++import { CONFIG } from '@/data/config';
++import { siteMetadata, jsonLd } from '@/lib/metadata';
+ import './globals.css';
+ 
+ const dmSerifDisplay = DM_Serif_Display({
+@@ -26,44 +28,30 @@ const outfit = Outfit({
+ });
+ 
+ export const metadata: Metadata = {
+-  metadataBase: new URL('https://yuvalmehta.vercel.app'),
++  metadataBase: new URL(siteMetadata.url),
+   title: {
+-    default: 'Yuval Mehta | Generative AI Engineer',
+-    template: '%s | Yuval Mehta',
++    default: siteMetadata.title,
++    template: `%s | ${CONFIG.name}`,
+   },
+-  description:
+-    'Versatile AI Engineer from Mumbai. Top 1% Amazon ML Challenge 2024. IEEE published. Specializing in LangGraph agents, computer vision, and MLOps.',
+-  keywords: [
+-    'Generative AI Engineer',
+-    'AI Engineer',
+-    'ML Engineer',
+-    'LangGraph',
+-    'Computer Vision',
+-    'MLOps',
+-    'Mumbai',
+-    'Yuval Mehta',
+-  ],
+-  authors: [{ name: 'Yuval Mehta' }],
++  description: siteMetadata.description,
++  keywords: siteMetadata.keywords,
++  authors: [{ name: CONFIG.name }],
++  alternates: { canonical: '/' },
+   openGraph: {
+     type: 'website',
+     locale: 'en_US',
+-    url: 'https://yuvalmehta.vercel.app',
+-    siteName: 'Yuval Mehta',
+-    images: [
+-      {
+-        url: '/og.png',
+-        width: 1200,
+-        height: 630,
+-        alt: 'Yuval Mehta — Generative AI Engineer',
+-      },
+-    ],
++    url: siteMetadata.url,
++    siteName: CONFIG.name,
++    title: siteMetadata.title,
++    description: siteMetadata.description,
++    // Image comes from src/app/opengraph-image.tsx
+   },
+   twitter: {
+     card: 'summary_large_image',
+-    title: 'Yuval Mehta | Generative AI Engineer',
+-    description:
+-      'Generative AI Engineer. Top 1% Amazon ML Challenge. IEEE published.',
+-    images: ['/og.png'],
++    creator: siteMetadata.twitterHandle,
++    title: siteMetadata.title,
++    description: siteMetadata.description,
++    images: ['/opengraph-image'],
+   },
+   robots: { index: true, follow: true },
+ };
+@@ -83,25 +71,7 @@ export default function RootLayout({
+       <head>
+         <script
+           type="application/ld+json"
+-          dangerouslySetInnerHTML={{
+-            __html: JSON.stringify({
+-              '@context': 'https://schema.org',
+-              '@type': 'Person',
+-              name: 'Yuval Mehta',
+-              jobTitle: 'Generative AI Engineer',
+-              url: 'https://yuvalmehta.vercel.app',
+-              email: 'yuvalmehta.728@gmail.com',
+-              address: {
+-                '@type': 'PostalAddress',
+-                addressLocality: 'Mumbai',
+-                addressCountry: 'IN',
+-              },
+-              sameAs: [
+-                'https://github.com/yuval728',
+-                'https://linkedin.com/in/yuvalmehta728',
+-              ],
+-            }),
+-          }}
++          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+         />
+       </head>
+       <body className="overflow-x-hidden bg-background text-text-primary">
+diff --git a/src/app/opengraph-image.tsx b/src/app/opengraph-image.tsx
+new file mode 100644
+index 0000000..28b48e6
+--- /dev/null
++++ b/src/app/opengraph-image.tsx
+@@ -0,0 +1,33 @@
++import { ImageResponse } from 'next/og';
++import { CONFIG } from '@/data/config';
++
++export const alt = `${CONFIG.name} | ${CONFIG.title}`;
++export const size = { width: 1200, height: 630 };
++export const contentType = 'image/png';
++
++export default function OpengraphImage() {
++  return new ImageResponse(
++    (
++      <div
++        style={{
++          width: '100%',
++          height: '100%',
++          display: 'flex',
++          flexDirection: 'column',
++          justifyContent: 'center',
++          padding: '80px',
++          background: '#0b0f14',
++          color: '#f4f6f8',
++        }}
++      >
++        <div style={{ fontSize: 28, color: '#7aa2ff', letterSpacing: 2 }}>yuvalmehta.vercel.app</div>
++        <div style={{ fontSize: 96, marginTop: 24 }}>{CONFIG.name}</div>
++        <div style={{ fontSize: 40, marginTop: 16, color: '#aab4c0' }}>{CONFIG.title} · {CONFIG.location}</div>
++        <div style={{ fontSize: 30, marginTop: 40, color: '#aab4c0', display: 'flex' }}>
++          Top 1% Amazon ML Challenge · 2 IEEE publications · 5x infra cost reduction
++        </div>
++      </div>
++    ),
++    { ...size }
++  );
++}
+diff --git a/src/components/sections/About.tsx b/src/components/sections/About.tsx
+index 56c8d7a..4009141 100644
+--- a/src/components/sections/About.tsx
++++ b/src/components/sections/About.tsx
+@@ -11,6 +11,19 @@ export function About() {
+             <p key={index}>{section}</p>
+           ))}
+         </div>
++
++        <p className="section-label mb-4 mt-12">// education</p>
++        <div className="space-y-4">
++          {CONFIG.education.map((edu) => (
++            <div key={edu.degree} className="rounded-lg border border-border/50 bg-surface/30 p-5">
++              <h3 className="font-sans font-medium text-text-primary">{edu.degree}</h3>
++              <p className="mt-1 font-sans text-sm text-accent-blue">{edu.school}</p>
++              <p className="mt-1 font-mono text-xs text-text-muted">
++                {edu.period} · {edu.detail}
++              </p>
++            </div>
++          ))}
++        </div>
+       </div>
+     </section>
+   );
+diff --git a/src/components/sections/Blog.tsx b/src/components/sections/Blog.tsx
+index 1abb37c..237f669 100644
+--- a/src/components/sections/Blog.tsx
++++ b/src/components/sections/Blog.tsx
+@@ -4,5 +4,22 @@ import { CONFIG } from '@/data/config';
+ 
+ export async function Blog() {
+   const posts = await fetchMediumPosts();
++  if (posts.length === 0) {
++    return (
++      <section id="blog" className="relative py-20">
++        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
++          <p className="section-label mb-8">// writing</p>
++          <a
++            href={`https://medium.com/@${CONFIG.medium}`}
++            target="_blank"
++            rel="noopener noreferrer"
++            className="font-sans font-medium text-accent-blue hover:underline"
++          >
++            Read my articles on Medium →
++          </a>
++        </div>
++      </section>
++    );
++  }
+   return <BlogList posts={posts} />;
+ }
+diff --git a/src/components/sections/Hero.tsx b/src/components/sections/Hero.tsx
+index adc74fe..31670d5 100644
+--- a/src/components/sections/Hero.tsx
++++ b/src/components/sections/Hero.tsx
+@@ -136,10 +136,10 @@ export function Hero() {
+             </div>
+             <div className="rounded-lg border border-border bg-surface px-4 py-2 text-center">
+               <p className="font-mono text-sm text-text-muted">
+-                Generative AI Engineer @ xLM
++                {CONFIG.currentRole}
+               </p>
+               <p className="font-sans text-xs text-text-muted">
+-                Continuous Intelligence
++                {CONFIG.currentRoleNote}
+               </p>
+             </div>
+           </motion.div>
+diff --git a/src/components/sections/Stats.tsx b/src/components/sections/Stats.tsx
+index 9731649..4e1fce3 100644
+--- a/src/components/sections/Stats.tsx
++++ b/src/components/sections/Stats.tsx
+@@ -64,7 +64,7 @@ export function Stats() {
+               className="flex gap-4 rounded-lg border border-border/50 bg-surface/30 p-6"
+               variants={itemVariants}
+             >
+-              <span className="text-2xl">{achievement.icon}</span>
++              <span className="w-20 shrink-0 font-mono text-sm text-accent-blue">{achievement.label}</span>
+               <div className="flex-1">
+                 <h3 className="font-sans font-medium text-text-primary">
+                   {achievement.title}
+diff --git a/src/components/ui/Footer.tsx b/src/components/ui/Footer.tsx
+index b70ade1..fcdabc8 100644
+--- a/src/components/ui/Footer.tsx
++++ b/src/components/ui/Footer.tsx
+@@ -6,7 +6,7 @@ export function Footer() {
+       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+         <div className="flex items-center justify-between gap-6">
+           <p className="font-mono text-sm text-text-muted">
+-            © 2025 {CONFIG.name}
++            © {new Date().getFullYear()} {CONFIG.name}
+           </p>
+           <div className="flex gap-6">
+             <a
+@@ -31,6 +31,17 @@ export function Footer() {
+                 <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+               </svg>
+             </a>
++            <a
++              href={`https://x.com/${CONFIG.x}`}
++              target="_blank"
++              rel="noopener noreferrer"
++              className="transition-colors hover:text-accent-blue"
++              aria-label="X"
++            >
++              <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
++                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
++              </svg>
++            </a>
+             <a
+               href={`https://medium.com/@${CONFIG.medium}`}
+               target="_blank"
+diff --git a/src/components/ui/ProjectCard.tsx b/src/components/ui/ProjectCard.tsx
+index eb47ec2..c97f51f 100644
+--- a/src/components/ui/ProjectCard.tsx
++++ b/src/components/ui/ProjectCard.tsx
+@@ -45,7 +45,7 @@ export function ProjectCard({
+         </a>
+       </div>
+ 
+-      <p className="mb-4 font-sans text-sm leading-relaxed text-text-muted line-clamp-2">
++      <p className="mb-4 font-sans text-sm leading-relaxed text-text-muted line-clamp-3">
+         {description}
+       </p>
+ 
+diff --git a/src/components/ui/StatusPill.tsx b/src/components/ui/StatusPill.tsx
+index 54d283f..f207409 100644
+--- a/src/components/ui/StatusPill.tsx
++++ b/src/components/ui/StatusPill.tsx
+@@ -1,8 +1,10 @@
+ 'use client';
+ 
+ import { motion } from 'framer-motion';
++import { CONFIG } from '@/data/config';
+ 
+ export function StatusPill() {
++  if (!CONFIG.availableForWork) return null;
+   return (
+     <div className="flex items-center gap-2">
+       <motion.div
+@@ -11,7 +13,7 @@ export function StatusPill() {
+         className="h-2 w-2 rounded-full bg-accent-green"
+       />
+       <span className="text-sm font-medium text-accent-green">
+-        Open to opportunities
++        {CONFIG.statusText}
+       </span>
+     </div>
+   );
+diff --git a/src/components/ui/Timeline.tsx b/src/components/ui/Timeline.tsx
+index 7ef9653..6bfb6b8 100644
+--- a/src/components/ui/Timeline.tsx
++++ b/src/components/ui/Timeline.tsx
+@@ -87,6 +87,7 @@ export function Timeline({ items }: TimelineProps) {
+             </div>
+ 
+             {/* Highlights */}
++            {exp.highlights.length > 0 && (
+             <ul className="mt-4 space-y-2">
+               {exp.highlights.map((highlight, i) => (
+                 <li key={i} className="font-sans text-sm text-text-muted leading-relaxed">
+@@ -95,8 +96,10 @@ export function Timeline({ items }: TimelineProps) {
+                 </li>
+               ))}
+             </ul>
++            )}
+ 
+             {/* Tech Stack Pills */}
++            {exp.stack.length > 0 && (
+             <div className="mt-4 flex flex-wrap gap-2">
+               {exp.stack.map((tech) => (
+                 <span
+@@ -107,6 +110,7 @@ export function Timeline({ items }: TimelineProps) {
+                 </span>
+               ))}
+             </div>
++            )}
+           </div>
+         </motion.div>
+       ))}
+diff --git a/src/content/about.mdx b/src/content/about.mdx
+deleted file mode 100644
+index 03995da..0000000
+--- a/src/content/about.mdx
++++ /dev/null
+@@ -1,38 +0,0 @@
+----
+-title: About Me
+-layout: centered
+-skills:
+-  Languages: ["Python", "JavaScript", "SQL", "C", "C++", "Java"]
+-  ML/DL Frameworks: ["PyTorch", "TensorFlow", "Keras", "Scikit-learn", "XGBoost", "OpenCV", "Transformers", "NLTK", "spaCy", "LightGBM", "CatBoost"]
+-  AI Agents: ["LangChain", "Langgraph", "CrewAI", "A2A", "MCP","LLamaIndex"]
+-  MLOps & Cloud: ["MLflow", "Docker", "Weights & Biases", "DVC", "CI/CD", "ONNX", "AWS", "GCP", "Azure"]
+-  Web Technologies: ["Django", "FastAPI", "Flask", "Streamlit", "Node.js", "Express.js", "HTML", "CSS", "Streamlit" ]
+-  Databases: ["MySQL", "MongoDB", "PostgreSQL", "Supabase", "Vector Databases", "Redis", "Pinecone", "ChromaDB", "FAISS", "SQLite"]
+-  Automations: ["N8N", "Make", "LangFlow", "Zapier", "SuperAGI"]
+-  Big Data & Distributed Computing: ["Pyspark", "Apache Spark"]
+-  Specialties: ["Computer Vision", "NLP", "Generative AI", "ML Pipelines", "Reinforcement Learning", "LLM Fine-tuning", "AI Automation", "Agent-based Systems"]
+----
+-# Hi, I'm Yuval Mehta 👋
+-
+-I'm a passionate Generative AI Engineer driven by curiosity and impact. I specialize in developing data-driven solutions that blend generative AI, machine learning, and scalable systems to tackle real-world challenges. With hands-on experience in computer vision, natural language processing, and MLOps, I bring innovative AI models from research to deployment.
+-
+-## 🚀 What I Do
+-
+-- **ML System Design** – Building and scaling end-to-end ML pipelines using MLOps best practices  
+-- **AI Development** – Creating production-ready models in computer vision and NLP domains  
+-- **Experimentation & Optimization** – Fine-tuning models for peak performance and reliability  
+-- **Product Impact** – Developing intelligent systems that deliver measurable business outcomes
+-
+-## 🏆 Key Achievements
+-
+-- Ranked Top 1% (274th/74,824) in Amazon ML Challenge 2024 with a team of four
+-- Published research paper on Early Diabetes Prediction at IEEE APCIT 2024
+-- Improved video processing throughput by 30% at IIT Kharagpur using GNNs and autoencoders
+-
+-## 📚 Education
+-
+-- **B.Tech in Computer Engineering**
+-  - NMIMS - Mukesh Patel School of Technology, Management and Engineering
+-  - Specialization in Artificial Intelligence
+-  - Focused on: Machine Learning, Deep Learning, Computer Vision, Natural Language Processing, Reinforcement Learning and MLOps
+-  - Core: Data Structures and Algorithms, Computer Architecture and Organization, Operating Systems, Database Management Systems, Computer Networks, Theory of Computation
+diff --git a/src/content/blog.mdx b/src/content/blog.mdx
+deleted file mode 100644
+index f0b0979..0000000
+--- a/src/content/blog.mdx
++++ /dev/null
+@@ -1,35 +0,0 @@
+----
+-title: Blog Posts
+-posts:
+-  - title: The Silent Backbone Why Traditional Machine Learning Still Matters in the AI Era
+-    date: 2025-04-22
+-    preview: A deep dive into the relevance of traditional machine learning techniques in the age of advanced AI.
+-    tags: [Machine Learning, AI, Data Science]
+-    link: https://medium.com/towards-artificial-intelligence/the-silent-backbone-why-traditional-machine-learning-still-matters-in-the-ai-era-22235586420a
+-  - title: The Rise of Intelligent Enterprises AI at the Heart of Business Strategy
+-    date: 2025-04-11
+-    preview: An exploration of how AI is becoming a core component of business strategy, driving innovation and efficiency.
+-    tags: [AI, Business Strategy, Innovation]
+-    link: https://medium.com/towards-artificial-intelligence/the-rise-of-intelligent-enterprises-ai-at-the-heart-of-business-strategy-ab58276235ba
+-  - title: AI-Powered Digital Twins The Future of Intelligent Systems and Real-World Optimization
+-    date: 2025-04-08
+-    preview: A comprehensive look at how AI-powered digital twins are transforming industries by enabling real-time monitoring and optimization.
+-    tags: [AI, Digital Twins, Optimization]
+-    link: https://medium.com/towards-artificial-intelligence/ai-powered-digital-twins-the-future-of-intelligent-systems-and-real-world-optimization-aa4f72898773
+-  - title: Scaling ML Models- The Hidden Challenges No One Warned Me About
+-    date: 2025-03-24
+-    preview: An exploration of the often-overlooked hurdles in scaling machine learning models effectively.
+-    tags: [Machine Learning, Scalability, MLOps]
+-    link: https://medium.com/@yuvalmehta.728/scaling-ml-models-the-hidden-challenges-no-one-warned-me-about-b45db512ecc3
+-  - title: Smarter Diagnostics- How AI is Enhancing Accuracy and Speed in Healthcare
+-    date: 2025-02-16
+-    preview: A look into how artificial intelligence is revolutionizing diagnostic procedures in the healthcare industry.
+-    tags: [AI, Healthcare, Diagnostics]
+-    link: https://medium.com/@yuvalmehta.728/smarter-diagnostics-how-ai-is-enhancing-accuracy-and-speed-in-healthcare-9098cb5b40a4
+-  - title: Demystifying Transformer Models- A Deep Dive into NLP’s Revolutionary Architecture and Its Real-world Applications
+-    date: 2025-01-26
+-    preview: Explore the evolution, components, and real-world applications of transformer models in NLP and beyond.
+-    tags: [NLP, Transformers, Deep Learning]
+-    link: https://medium.com/@yuvalmehta.728/demystifying-transformer-models-a-deep-dive-into-nlps-revolutionary-architecture-and-its-4c5a60e04c35
+----
+-
+diff --git a/src/content/experience.mdx b/src/content/experience.mdx
+deleted file mode 100644
+index 6a00be7..0000000
+--- a/src/content/experience.mdx
++++ /dev/null
+@@ -1,81 +0,0 @@
+----
+-title: Experience
+-layout: centered
+-jobs:
+-  - title: Generative AI Engineer
+-    company: xLM - Continuous Intelligence
+-    location: Remote
+-    startDate: June 2025
+-    responsibilities:
+-      - Engineered AI agents within cIV (compliance intelligence platform), automating GxP workflows and expanding task coverage by 65%.
+-      - Built LangGraph-based multi-agent systems with retry, memory, and control flows—cutting execution time by 30% and boosting success rates by 40%.
+-      - Embedded traceable logic and collaborated with QA to enhance audit-readiness and system transparency.
+-
+-  - title: Generative AI Engineer Intern
+-    company: xLM - Continuous Intelligence
+-    location: Mumbai, Maharashtra
+-    startDate: January 2025
+-    endDate: May 2025
+-    responsibilities:
+-      - Constructed an automated traceability matrix generator—reducing manual effort by 60% and increasing consistency by 45%.
+-      - Deployed real-time QA pipelines and logging systems, enabling 100% traceability in model operations.
+-
+-  
+-  - title: Machine Learning Research Intern
+-    company: IIT Kharagpur
+-    location: Remote
+-    startDate: June 2025
+-    endDate: May 2025
+-    responsibilities:
+-      - Conducted experiments with auto-encoders and GNN, boosting video processing by 30%.  
+-      - Optimized hyper-parameters, resulting in a 20% increase in model accuracy and efficiency.
+-
+-  - title: Machine Learning / Data Science Intern
+-    company: JM Financial Ltd
+-    location: Mumbai, Maharashtra
+-    startDate: July 2024
+-    endDate: November 2024
+-    responsibilities:
+-      - Automated KYC processes using computer vision and deep learning, cutting processing time by 40%.
+-      - Developed OCR solutions to enhance document verification efficiency by 30%.
+-      - Analyzed large data to derive actionable insights, influencing strategic decisions and operational efficiency by 15%.
+-  
+-  - title: Backend Developer Intern
+-    company: Kenmark ITAN Solutions
+-    location: Mumbai, Maharashtra
+-    startDate: December 2022
+-    endDate: April 2023
+-    responsibilities:
+-      - Engineered robust APIs that boosted integration efficiency by 30% across multiple platforms.
+-      - Implemented comprehensive QA protocols, enhancing overall system reliability by 20%.
+-      - Revamped SQL and MySQL databases, significantly cutting query response times by 15%.
+----
+-
+-# Experience
+-
+-Here is a summary of my professional experience:
+-
+-## xLM - Continuous Intelligence (AI/ML Intern)
+-**Mumbai, Maharashtra**  
+-*January 2025 – May 2025*  
+-- Optimizing AI-driven automation and machine learning models for improved performance.
+-
+-## IIT Kharagpur (Remote) (Machine Learning Intern)
+-**Kharagpur, West Bengal**  
+-*July 2024 – May 2025*  
+-- Conducted experiments with auto-encoders and GNN, boosting video processing by 30%.  
+-- Optimized hyper-parameters, resulting in a 20% increase in model accuracy and efficiency.
+-
+-## JM Financial Ltd (Machine Learning / Data Science Intern)
+-**Mumbai, Maharashtra**  
+-*July 2024 – November 2024*  
+-- Automated KYC processes using computer vision and deep learning, cutting processing time by 40%.  
+-- Developed OCR solutions to enhance document verification efficiency by 30%.  
+-- Analyzed large data to derive actionable insights, influencing strategic decisions and operational efficiency by 15%.
+-
+-## Kenmark ITAN Solutions (Backend Developer Intern)
+-**Mumbai, Maharashtra**  
+-*December 2022 – April 2023*  
+-- Engineered robust APIs that boosted integration efficiency by 30% across multiple platforms.  
+-- Implemented comprehensive QA protocols, enhancing overall system reliability by 20%.  
+-- Revamped SQL and MySQL databases, significantly cutting query response times by 15%.
+diff --git a/src/content/projects.mdx b/src/content/projects.mdx
+deleted file mode 100644
+index c95cce5..0000000
+--- a/src/content/projects.mdx
++++ /dev/null
+@@ -1,36 +0,0 @@
+----
+-title: Projects
+-projects:
+-  - title: AQI and Molecule Prediction
+-    description: ViT-based model to predict AQI and molecular data from satellite and street view imagery. Optimized for accuracy and cloud scalability.
+-    image: https://via.placeholder.com/400x300
+-    tags: [PyTorch, MLFlow, GCP, ViT, Computer Vision, Multi-modal]
+-    github: https://github.com/yuval728/AQI_predictor
+-
+-
+-  - title: Verbal-Vision
+-    description: Lip reading model with 87% character-level accuracy. Deployed using TorchServe with optimizations for inference and training time.
+-    image: https://via.placeholder.com/400x300
+-    tags: [PyTorch, MLflow, TorchServe, Computer Vision, NLP, MLOps, Docker]
+-    github: https://github.com/Yuval728/VerbalVision
+-    
+-
+-  - title: Image-Lingo
+-    description: Image captioning model using attention mechanism with 91% accuracy. Integrated MLOps for model tracking and performance improvements.
+-    image: https://via.placeholder.com/400x300
+-    tags: [PyTorch, AWS, MLflow, Attention]
+-    github: https://github.com/Yuval728/ImageLingo
+-
+-  - title: Outreach-Ace
+-    description: Gen-AI based resume analyzer and cold email generator with Langchain and LLMs. Includes a user-friendly Streamlit interface.
+-    image: https://via.placeholder.com/400x300
+-    tags: [Langchain, LLM, ChromaDB, Streamlit, Gen-AI]
+-    github: https://github.com/Yuval728/OutreachAce
+-    demo: https://outreachace.streamlit.app/
+-
+-  - title: Urban-Echo
+-    description: Sound classification model trained on 8,000+ audio samples. Enhanced model accuracy and training using audio preprocessing and MLflow.
+-    image: https://via.placeholder.com/400x300
+-    tags: [Audio, PyTorch, MLflow, Docker]
+-    github: https://github.com/Yuval728/UrbanEcho
+----
+diff --git a/src/content/research.mdx b/src/content/research.mdx
+deleted file mode 100644
+index fc4f42f..0000000
+--- a/src/content/research.mdx
++++ /dev/null
+@@ -1,9 +0,0 @@
+----
+-title: Research & Publications
+-papers:
+-  - title: Examining ML Approaches for Early Diabetes Prediction
+-    authors: [Yuval Mehta, Team]
+-    conference: IEEE Asia Pacific Conference on Information Technology (APCIT) 2024
+-    abstract: This research explores multiple machine learning models for early diabetes prediction, highlighting key patterns in patient health data to aid in proactive healthcare measures.
+-    link: https://ieeexplore.ieee.org/document/10673680
+----
+\ No newline at end of file
+diff --git a/src/data/config.ts b/src/data/config.ts
+index 539e232..c509386 100644
+--- a/src/data/config.ts
++++ b/src/data/config.ts
+@@ -1,27 +1,37 @@
+ export const CONFIG = {
+   name: 'Yuval Mehta',
+-  title: 'Generative AI Engineer',
++  title: 'Senior AI Engineer',
+   tagline:
+-    'Building regulated, production-grade AI platforms - from agentic workflows and LLM infrastructure to scalable ML systems.',
++    'I build and ship ML and LLM systems that hold up in production, from fine-tuning and inference to agents, for regulated, high-trust environments.',
+   location: 'Mumbai, India',
+   availableForWork: true,
++  statusText: 'Open to research collaborations',
+   email: 'yuvalmehta.728@gmail.com',
+   github: 'yuval728',
+   linkedin: 'yuvalmehta728',
+   medium: 'yuvalmehta.728',
++  x: 'Yuval728',
+   resume: '/YuvalMehta_CV.pdf',
+   avatar: 'https://avatars.githubusercontent.com/u/87527560?v=4',
+-  currentRole: 'Generative AI Engineer @ xLM',
++  currentRole: 'Senior AI Engineer @ Nimap Infotech',
++  currentRoleNote: 'Deployed at Mirae Asset Sharekhan',
+   pinnedRepos: [
+-    'ResearchPilot',
+-    'VerbalVision',
++    // Must match GitHub repo names exactly. Order here is the display order.
++    'Research-Pilot',
++    'Qwen-3.5-Scratch-Implementation',
+     'AQI_predictor',
+-    'AI_Therapist',
+-    'WS_Buddy',
+-    'ImageLingo',
+-    'OutreachAce',
+-    'UrbanEcho',
+-    'RL-Job-Scheduler',
++    'AI-Therapist',
++    'WsBuddy',
++    'VerbalVision',
++  ],
++
++  education: [
++    {
++      degree: 'B.Tech in Computer Engineering (Specialization in Artificial Intelligence)',
++      school: 'NMIMS Mukesh Patel School of Technology Management and Engineering',
++      period: 'Graduated June 2025',
++      detail: 'CGPA 3.84/4.0',
++    },
+   ],
+ 
+   stats: [
+@@ -34,44 +44,44 @@ export const CONFIG = {
+ 
+   achievements: [
+     {
+-      icon: '🎖️',
++      label: '4th',
+       title: 'GenAI Week 2025 Hackathon',
+       description: 'Placed 4th of 250+ teams in Silicon Valley after building a GxP audit chatbot end to end.',
+     },
+     {
+-      icon: '🏆',
++      label: 'Top 1%',
+       title: 'Amazon ML Challenge 2024',
+       description: 'Ranked 274th of 74,824 participants - Top 1% in India\'s largest ML competition.',
+     },
+     {
+-      icon: '📚',
++      label: 'IEEE',
+       title: 'IEEE InCoWoCo 2025',
+       description: 'Published: Estimating Ground-Level AQI from Satellite Imagery using dual-view attention models.',
+     },
+     {
+-      icon: '📚',
++      label: 'IEEE',
+       title: 'IEEE APCIT 2024',
+       description: 'Published: Examining ML Approaches for Early Diabetes Prediction.',
+     },
+     {
+-      icon: '🔬',
++      label: 'Research',
+       title: 'IIT Kharagpur Research',
+       description: 'Built a spatiotemporal video-feature extraction pipeline using autoencoders and graph neural networks.',
+     },
+     {
+-      icon: '*',
++      label: 'Platform',
+       title: 'Production AI Platform Delivery',
+       description: 'Owned cEMS architecture and delivery, including ML pipelines, agents, CI/CD, and GxP-compliant infrastructure.',
+     },
+   ],
+ 
+   about: {
+-    title: "Hi, I'm Yuval Mehta 👋",
++    title: "Hi, I'm Yuval Mehta",
+     sections: [
+-      "I'm a Generative AI Engineer from Mumbai who builds dependable AI systems for real operating environments - not just demos. My work spans agentic workflows, LLM infrastructure, distributed systems, and ML platforms where compliance, observability, and reliability matter from day one.",
+-      "At xLM - Continuous Intelligence, I own architecture and delivery for GxP-compliant products: from cEMS, an environmental-monitoring platform built from the ground up, to reusable audit-trail infrastructure and LangGraph multi-agent systems for intelligent validation. That work has reduced infrastructure costs 5x, improved execution time 30%, increased task success 40%, and expanded workflow coverage 65%.",
++      "I'm a Senior AI Engineer from Mumbai. My focus is ML and LLM systems that survive production: fine-tuning and post-training, inference, agents, and the evaluation and observability around them. I build for environments where compliance and reliability matter from day one, not for demos.",
++      "At xLM Continuous Intelligence (2025 to Sep 2026) I owned architecture and delivery for GxP-compliant products: cEMS, an environmental-monitoring platform built from the ground up, reusable audit-trail infrastructure, and LangGraph multi-agent systems for intelligent validation. Results: 5x lower infrastructure cost, 30% faster execution, 40% higher task success, 65% wider workflow coverage. Since Sep 2026 I am a Senior AI Engineer at Nimap Infotech, deployed at Mirae Asset Sharekhan.",
+       "I combine research depth with product-minded engineering. My background includes machine-learning research at IIT Kharagpur, computer-vision and OCR work at JM Financial, two IEEE publications, and a Top 1% finish in the Amazon ML Challenge. I care equally about model capability, system design, and measurable business impact.",
+-      "I also share practical lessons on LLMOps, context engineering, and agentic AI patterns. If you're building high-trust AI infrastructure or an ambitious AI product, let's talk.",
++      "I write about LLM post-training, inference, agent memory, and production failure modes. If you are working on high-trust AI infrastructure or research, get in touch.",
+     ],
+   },
+ 
+@@ -128,13 +138,23 @@ export const CONFIG = {
+   ],
+ 
+   experience: [
++    {
++      role: 'Senior AI Engineer',
++      company: 'Nimap Infotech (deployed at Mirae Asset Sharekhan)',
++      period: 'Sep 2026 - Present',
++      location: 'Mumbai, Maharashtra',
++      current: true,
++      // Add NDA-cleared, metric-backed highlights here once confirmed.
++      highlights: [],
++      stack: [],
++    },
+     {
+       role: 'Generative AI Engineer',
+       company: 'xLM Continuous Intelligence',
+       companyUrl: 'https://www.continuousintelligence.ai/',
+-      period: 'Jun 2025 - Present',
++      period: 'Jun 2025 - Sep 2026',
+       location: 'Mumbai, Maharashtra',
+-      current: true,
++      current: false,
+       highlights: [
+         'Owned architecture and delivery of cEMS from the ground up, building distributed systems, ML pipelines, AI agents, CI/CD workflows, and GxP-compliant infrastructure',
+         'Reduced cTM infrastructure costs 5x through end-to-end pipeline redesign, scalability improvements, and performance optimization',
+@@ -203,7 +223,7 @@ export const CONFIG = {
+       title: 'Estimating Ground-Level Air Quality Index from Satellite Imagery',
+       conference: 'IEEE InCoWoCo 2025',
+       authors: 'Yuval Mehta et al.',
+-      abstract: 'A dual-view attention model combining satellite and street-view imagery to forecast AQI and six pollutants, achieving 93% R² accuracy with 35% reduction in cloud training costs.',
++      abstract: 'A dual-view attention model combining satellite and street-view imagery to forecast AQI and six pollutants, reaching an R² of 0.93 with a 35% reduction in cloud training costs.',
+       doi: '10.1109/InCoWoCo64440.2025.11407074',
+       link: 'https://ieeexplore.ieee.org/document/11407074/',
+       year: 2025,
+@@ -223,7 +243,7 @@ export const CONFIG = {
+     {
+       name: 'Research Pilot',
+       description: 'AI research copilot that turns papers into structured extractions, summaries, architecture diagrams, and PyTorch code through a 10-stage LangGraph workflow.',
+-      github: 'https://github.com/yuval728/ResearchPilot',
++      github: 'https://github.com/yuval728/Research-Pilot',
+       demo: '',
+       tags: ['LangGraph', 'RAG', 'FastAPI', 'React', 'Supabase', 'LiteLLM'],
+       pinned: true,
+@@ -231,14 +251,14 @@ export const CONFIG = {
+     {
+       name: 'Qwen3.5 from Scratch',
+       description: 'PyTorch implementation of core Qwen3.5 architecture components: GQA, SwiGLU, RoPE, and RMSNorm; validated against the official implementation.',
+-      github: 'https://github.com/yuval728',
++      github: 'https://github.com/yuval728/Qwen-3.5-Scratch-Implementation',
+       demo: '',
+       tags: ['Python', 'PyTorch', 'Transformers', 'GQA', 'RoPE'],
+       pinned: true,
+     },
+     {
+       name: 'AQI Prediction',
+-      description: 'Dual-view attention model forecasting AQI and 6 pollutants with 93% R² accuracy. Reduced cloud training cost by 35% via automated sweeps.',
++      description: 'Dual-view attention model forecasting AQI and 6 pollutants, R² of 0.93. Reduced cloud training cost by 35% via automated sweeps.',
+       github: 'https://github.com/yuval728/AQI_predictor',
+       demo: '',
+       tags: ['PyTorch', 'GCP', 'WandB', 'FastAPI', 'MLOps'],
+@@ -246,16 +266,16 @@ export const CONFIG = {
+     },
+     {
+       name: 'AI Therapist',
+-      description: 'LLM-powered therapy agent with emotion control and persistent memory — 70% session consistency improvement, 52% empathy alignment via feedback-driven tuning.',
+-      github: 'https://github.com/yuval728',
++      description: 'LLM-powered therapy agent with emotion control and persistent memory: 70% session consistency improvement, 52% empathy alignment via feedback-driven tuning.',
++      github: 'https://github.com/yuval728/AI-Therapist',
+       demo: '',
+       tags: ['LangGraph', 'LLMs', 'FastAPI', 'Supabase', 'Vector DB'],
+       pinned: true,
+     },
+     {
+       name: 'WS Buddy',
+-      description: 'Multimodal chatbot integrating voice, image, and context memory — 85% task success rate, 30% engagement boost via dynamic activity updates.',
+-      github: 'https://github.com/yuval728',
++      description: 'Multimodal chatbot integrating voice, image, and context memory: 85% task success rate, 30% engagement boost via dynamic activity updates.',
++      github: 'https://github.com/yuval728/WsBuddy',
+       demo: '',
+       tags: ['LangGraph', 'Whisper', 'Qdrant', 'Diffusion', 'Docker'],
+       pinned: true,
+@@ -296,7 +316,7 @@ export const CONFIG = {
+ 
+   contact: {
+     title: "Let's build something.",
+-    description: 'Open to full-time roles, research collaborations, and freelance AI/ML projects.',
++    description: 'Open to research collaborations and conversations about ML and LLM systems.',
+   },
+ 
+   blogDisplayCount: 6,
+diff --git a/src/lib/github.ts b/src/lib/github.ts
+index e1cae12..1a9a060 100644
+--- a/src/lib/github.ts
++++ b/src/lib/github.ts
+@@ -13,18 +13,48 @@ interface FetchOptions {
+   all?: boolean;
+ }
+ 
++// Curated copy (with measured results) overrides the raw GitHub description.
++function curate(repo: GitHubRepo): GitHubRepo {
++  const match = CONFIG.projects.find(
++    (p) => p.github.toLowerCase() === repo.html_url.toLowerCase()
++  );
++  if (!match) return repo;
++  return {
++    ...repo,
++    name: match.name,
++    description: match.description,
++    topics: match.tags,
++    homepage: match.demo || repo.homepage,
++  };
++}
++
++// Fallback uses only curated config data. No invented numbers.
++function getFallbackProjects(): GitHubRepo[] {
++  return CONFIG.projects
++    .filter((p) => p.pinned)
++    .map((p) => ({
++      name: p.name,
++      description: p.description,
++      html_url: p.github,
++      stargazers_count: 0,
++      topics: p.tags,
++      homepage: p.demo || null,
++    }));
++}
++
+ export async function fetchGitHubProjects(options: FetchOptions = {}): Promise<GitHubRepo[]> {
+   try {
+     const headers: Record<string, string> = {
+       Accept: 'application/vnd.github.v3+json',
+     };
+ 
++    // Without a token, GitHub rate-limits shared hosting IPs (60 req/hour).
+     if (process.env.GITHUB_TOKEN) {
+       headers.Authorization = `token ${process.env.GITHUB_TOKEN}`;
+     }
+ 
+     const response = await fetch(
+-      `https://api.github.com/users/${CONFIG.github}/repos?per_page=50&sort=updated`,
++      `https://api.github.com/users/${CONFIG.github}/repos?per_page=100&sort=updated`,
+       {
+         headers,
+         next: { revalidate: 3600 },
+@@ -35,60 +65,22 @@ export async function fetchGitHubProjects(options: FetchOptions = {}): Promise<G
+       throw new Error('Failed to fetch GitHub repos');
+     }
+ 
+-    const repos: GitHubRepo[] = await response.json();
++    const repos: GitHubRepo[] = (await response.json()).filter(
++      (r: GitHubRepo & { fork?: boolean }) => !r.fork
++    );
+ 
+-    // If all: true, return all repos; otherwise filter to pinned
+     if (options.all) {
+-      return repos;
++      return repos.map(curate);
+     }
+-    return repos.filter((repo) => CONFIG.pinnedRepos.includes(repo.name));
++
++    const order = CONFIG.pinnedRepos;
++    const pinned = repos
++      .filter((repo) => order.includes(repo.name))
++      .sort((a, b) => order.indexOf(a.name) - order.indexOf(b.name));
++
++    return pinned.length > 0 ? pinned.map(curate) : getFallbackProjects();
+   } catch (error) {
+     console.error('Error fetching GitHub projects:', error);
+-    return options.all ? getFallbackProjects() : getFallbackProjects();
++    return getFallbackProjects();
+   }
+ }
+-
+-function getFallbackProjects(): GitHubRepo[] {
+-  return [
+-    {
+-      name: 'AQI_predictor',
+-      description: 'ViT model for AQI prediction from satellite and street imagery',
+-      html_url: 'https://github.com/yuval728/AQI_predictor',
+-      stargazers_count: 42,
+-      topics: ['pytorch', 'vit', 'gcp', 'mlflow', 'computer-vision'],
+-      homepage: null,
+-    },
+-    {
+-      name: 'VerbalVision',
+-      description: 'Lip reading model with 87% character accuracy, deployed with TorchServe',
+-      html_url: 'https://github.com/yuval728/VerbalVision',
+-      stargazers_count: 38,
+-      topics: ['pytorch', 'torchserve', 'mlops', 'docker'],
+-      homepage: null,
+-    },
+-    {
+-      name: 'ImageLingo',
+-      description: 'Image captioning model with attention mechanism, 91% accuracy',
+-      html_url: 'https://github.com/yuval728/ImageLingo',
+-      stargazers_count: 35,
+-      topics: ['pytorch', 'attention', 'aws', 'mlflow'],
+-      homepage: null,
+-    },
+-    {
+-      name: 'OutreachAce',
+-      description: 'Gen-AI resume analyzer and cold email generator powered by LangChain',
+-      html_url: 'https://github.com/yuval728/OutreachAce',
+-      stargazers_count: 56,
+-      topics: ['langchain', 'llm', 'chromadb', 'streamlit'],
+-      homepage: 'https://outreachace.streamlit.app/',
+-    },
+-    {
+-      name: 'UrbanEcho',
+-      description: 'Sound classification on 8000+ samples with robust audio processing',
+-      html_url: 'https://github.com/yuval728/UrbanEcho',
+-      stargazers_count: 28,
+-      topics: ['pytorch', 'audio', 'mlflow', 'docker'],
+-      homepage: null,
+-    },
+-  ];
+-}
+diff --git a/src/lib/medium.ts b/src/lib/medium.ts
+index 7387436..4b5ffec 100644
+--- a/src/lib/medium.ts
++++ b/src/lib/medium.ts
+@@ -43,37 +43,7 @@ export async function fetchMediumPosts(posts_count?: number): Promise<MediumPost
+   }
+ }
+ 
++// No invented posts: if the feed fails, render an empty list and let the UI link to Medium.
+ function getFallbackPosts(): MediumPost[] {
+-  return [
+-    {
+-      title: 'Scaling Laws in AI: Why Bigger Models Work in Research but Break in Production',
+-      link: 'https://medium.com/@3ec8787f291f',
+-      pubDate: 'Sep 2025',
+-      categories: ['AI', 'ML', 'Scale'],
+-    },
+-    {
+-      title: 'Agentic Patterns: The Building Blocks of Reliable AI Agents',
+-      link: 'https://medium.com/@3ec8787f291f',
+-      pubDate: 'Aug 2025',
+-      categories: ['AI', 'Agents'],
+-    },
+-    {
+-      title: 'Fine-Tuning LLMs in 2025: Techniques, Trade-offs, and Use Cases',
+-      link: 'https://medium.com/@3ec8787f291f',
+-      pubDate: 'May 2025',
+-      categories: ['LLM', 'ML'],
+-    },
+-    {
+-      title: 'Machine Learning at Scale: Why PySpark MLlib Still Wins in 2025',
+-      link: 'https://medium.com/@3ec8787f291f',
+-      pubDate: 'Jul 2025',
+-      categories: ['BigData', 'ML'],
+-    },
+-    {
+-      title: 'How to Build Bulletproof Data Pipelines with PySpark',
+-      link: 'https://medium.com/@3ec8787f291f',
+-      pubDate: 'Jul 2025',
+-      categories: ['BigData', 'Data'],
+-    },
+-  ];
++  return [];
+ }
+diff --git a/src/lib/metadata.ts b/src/lib/metadata.ts
+index d23e77c..26f7b58 100644
+--- a/src/lib/metadata.ts
++++ b/src/lib/metadata.ts
+@@ -2,20 +2,21 @@ import { CONFIG } from '@/data/config';
+ 
+ export const siteMetadata = {
+   title: `${CONFIG.name} | ${CONFIG.title}`,
+-  description: `Generative AI Engineer from Mumbai. Top 1% Amazon ML Challenge 2024. IEEE published. Specializing in LangGraph agents, computer vision, and MLOps.`,
+-  url: 'https://yuvalmehta.vercel.app/',
+-  ogImage: '/og.png',
+-  twitterHandle: '@yuval728',
++  description:
++    'Senior AI Engineer from Mumbai working on ML and LLM systems: fine-tuning, inference, and production agents. Top 1% Amazon ML Challenge 2024. Two IEEE publications.',
++  url: 'https://yuvalmehta.vercel.app',
++  twitterHandle: '@Yuval728',
+   keywords: [
+-    'AI Engineer',
++    'Senior AI Engineer',
+     'ML Engineer',
++    'LLM Fine-tuning',
++    'LLM Inference',
++    'AI Agents',
+     'LangGraph',
+-    'Computer Vision',
++    'PyTorch',
+     'MLOps',
+     'Mumbai',
+     'Yuval Mehta',
+-    'PyTorch',
+-    'AI Agents',
+   ],
+ };
+ 
+@@ -31,9 +32,11 @@ export const jsonLd = {
+     addressLocality: CONFIG.location.split(',')[0].trim(),
+     addressCountry: 'IN',
+   },
++  alumniOf: 'NMIMS Mukesh Patel School of Technology Management and Engineering',
+   sameAs: [
+     `https://github.com/${CONFIG.github}`,
+     `https://linkedin.com/in/${CONFIG.linkedin}`,
+     `https://medium.com/@${CONFIG.medium}`,
++    `https://x.com/${CONFIG.x}`,
+   ],
+ };
